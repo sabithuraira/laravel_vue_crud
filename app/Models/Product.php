@@ -13,9 +13,17 @@ class Product extends Model{
 
     protected $fillable = ["product_name", "quantity", "price"];
 
-    protected $appends = ['encId'];
+    protected $appends = ['encId', 'totalValueNumber', 'dateSubmit'];
 
     public function getEncIdAttribute(){
         return Crypt::encryptString($this->id);
+    }
+
+    public function getTotalValueNumberAttribute(){
+        return $this->quantity*$this->price;
+    }
+
+    public function getdateSubmitAttribute(){
+        return date('d M Y', strtotime($this->created_at));
     }
 }

@@ -15,6 +15,8 @@
                 <th>Product</th>
                 <th>Quantity</th>
                 <th>Price</th>
+                <th>Date Submitted</th>
+                <th>Total Number Value</th>
                 <th colspan="2">Action</th>
             </tr>
 
@@ -23,8 +25,16 @@
                 <td>{{ data.product_name }}</td>
                 <td>{{ data.quantity }}</td>
                 <td>{{ data.price }}</td>
+                <td>{{ data.dateSubmit }}</td>
+                <td>{{ data.totalValueNumber }}</td>
                 <td><button type="button" class="btn btn-primary" @click="editProduct(data)">Edit</button></td>
                 <td><button type="button" class="btn btn-danger" @click="deleteProduct(data.encId)">Delete</button></td>
+            </tr>
+
+            <tr>
+                <th colspan="3"><h3>TOTAL PER PAGE</h3></th>
+                <th colspan="3" class="text-center"><h3>{{ totalPerPage }}</h3></th>
+                <th colspan="2"></th>
             </tr>
         </table>
                             
@@ -94,6 +104,11 @@
         },
         components:{ 
             Bootstrap4Pagination,
+        },
+        computed: {
+            totalPerPage(){
+                return  this.datas.data.reduce((a, b) => a + b.totalValueNumber, 0)
+            }
         },
         methods : {
             async getList(page=1){
