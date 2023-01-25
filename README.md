@@ -1,3 +1,5 @@
+I create CRUD Application with 2 apps, Backend using Laravel and Frontend using Vue.JS. Here is the description:
+
 ## About App
 
 - run "composer install".
@@ -14,6 +16,7 @@
 - SHOW: GET - {url}/api/product/{id}  => return data column (id param is encryption id from real ID)
 - DESTROY: DELETE - {url}/api/product/{id}  => return message result (id param is encryption id from real ID)
 
+![screenshot](sc/sc1.png)
 
 ## License
 
