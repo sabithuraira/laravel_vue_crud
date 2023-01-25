@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
+use Validator;
+use Auth;
+use Illuminate\Support\Facades\Crypt;
+
 class ProductController extends Controller
 {
     /**
@@ -47,7 +51,7 @@ class ProductController extends Controller
         $validator=  Validator::make($request->all(), [
             'product_name'  => 'required|string',
             'quantity'  => 'required|integer',
-            'price'  => 'required|decimal',
+            'price'  => 'required|integer',
         ]);
 
         if($validator->fails()){
@@ -65,7 +69,7 @@ class ProductController extends Controller
 
         return response()->json([
             'status'     => 'success',
-            'results'   => $datas,
+            'results'   => $data,
         ]);
     }
 
@@ -79,7 +83,7 @@ class ProductController extends Controller
         $status = "success";
         try{
             $decryptId = Crypt::decryptString($id);
-            $result = Todo::find($decryptId);
+            $result = Product::find($decryptId);
         }
         catch(\Illuminate\Contracts\Encryption\DecryptException $e){
             $status = "error";
@@ -99,7 +103,7 @@ class ProductController extends Controller
         $validator=  Validator::make($request->all(), [
             'product_name'  => 'required|string',
             'quantity'  => 'required|integer',
-            'price'  => 'required|decimal',
+            'price'  => 'required|integer',
         ]);
 
         if($validator->fails()){
@@ -130,7 +134,7 @@ class ProductController extends Controller
     public function destroy($id){
         try{
             $decryptId = Crypt::decryptString($id);
-            $model = Todo::find($decryptId);
+            $model = Product::find($decryptId);
             $model->delete();
             return response()->json(['status' => 'success', 'data' => "Data success deleted" ]);
         }
